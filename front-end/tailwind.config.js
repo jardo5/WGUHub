@@ -19,10 +19,12 @@ export default {
       {
         darkTheme: {
           "primary": "#566FB3",
+          "primary2": "#4a5b8a",
           "secondary": "#A1B1DD",
           "accent": "#8B65A0",
           "neutral": "#A0AEC0",
           "base-100": "#03060A",
+          "base-200": "#0D1117",
           "error": "#E53E3E",
           "success": "#48BB78",
           "warning": "#ED8936",
@@ -32,6 +34,7 @@ export default {
         },
         lightTheme: {
           "primary": "#7A96C2",
+          "primary25" : "#8a99c1",
           "secondary": "#C1CFEA",
           "accent": "#A88FB8",
           "neutral": "#7B8794",

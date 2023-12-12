@@ -2,7 +2,7 @@ import School from '@material-symbols/svg-500/outlined/school.svg?react';
 
 function navbar() {
     return (
-        <nav className="navbar bg-base-100 font-ubuntu border-b border-secondary">
+        <nav className="navbar bg-base-100 border-b border-secondary sticky">
             <div className="flex-1">
                 <a href="/" className="btn btn-ghost text-xl">
                     <School className="w-10 h-10 fill-secondary" />
