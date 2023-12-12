@@ -1,10 +1,12 @@
 import React from 'react';
-import TestAPI from './TestAPI/TestAPI.jsx';
+import Navbar from "./components/navbar.jsx";
+
+
 
 function App() {
     return (
-        <div className="App">
-            <TestAPI />
+        <div className="App h-full w-full">
+            <Navbar />
         </div>
     );
 }

@@ -10,22 +10,40 @@ export default {
       fontFamily: {
         ubuntu: ['Ubuntu', 'sans-serif'],
       },
-      colors: {
-        'light-text': '#0A0A0F',
-        'light-background': '#F8F9FC',
-        'light-primary': '#566FB3',
-        'light-secondary': '#A1B1DD',
-        'light-accent': '#718CD6',
-      },
-      dark: {
-        "dark-text": "#F0F0F5",
-        "dark-background": "#030407",
-        "dark-primary": "#4C65A9",
-        "dark-secondary": "#22325E",
-        "dark-accent": "#29448E",
-      },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
+
+  daisyui: {
+    themes: [
+      {
+        darkTheme: {
+          "primary": "#566FB3",
+          "secondary": "#A1B1DD",
+          "accent": "#8B65A0",
+          "neutral": "#A0AEC0",
+          "base-100": "#03060A",
+          "error": "#E53E3E",
+          "success": "#48BB78",
+          "warning": "#ED8936",
+          "info": "#4299E1",
+          "text": "#DCE4F3",
+
+        },
+        lightTheme: {
+          "primary": "#7A96C2",
+          "secondary": "#C1CFEA",
+          "accent": "#A88FB8",
+          "neutral": "#7B8794",
+          "base-100": "#F7FAFC",
+          "error": "#FC8181",
+          "success": "#68D391",
+          "warning": "#F6AD55",
+          "info": "#63B3ED",
+          "text": "#2D3748",
+        },
+      },
+    ],
+  },
 }
 
