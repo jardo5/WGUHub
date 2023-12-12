@@ -4,7 +4,7 @@ import Filter from '@material-symbols/svg-500/outlined/filter_alt.svg?react';
 
 function courses() {
     return(
-        <main className="w-full h-full overflow-x-auto px-12">
+        <main className="w-full h-full my-8 overflow-x-auto px-12">
             <table className="table px-12">
                 {/* head */}
                 <thead>
