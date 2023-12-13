@@ -1,34 +1,40 @@
 package com.wguhub.Models;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "course")
 public class Course {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int courseId;
+    private int course_id;
 
-    @Column(name = "course_code", nullable = false)
-    private String courseCode; // FK
+    @Column(nullable = false)
+    private String course_code;
 
-    @Column(name = "course_name", nullable = false)
-    private String courseName;
+    @Column(nullable = false)
+    private String course_name;
 
-    @Column(name = "course_description")
-    private String courseDescription;
+    @Column(columnDefinition = "TEXT")
+    private String course_description;
 
-    @Column(name = "course_credits")
-    private int courseCredits;
+    @Column(nullable = false)
+    private Integer course_credits;
 
-    @Column(name = "course_college")
-    private String courseCollege;
+    @Column(nullable = false)
+    private Integer course_degree;
 
-    @Column(name = "course_associated_degrees")
-    private String courseAssociatedDegrees;
+    @ManyToMany(mappedBy = "courses")
+    private Set<Degree> degrees = new HashSet<>();
+
+    @OneToMany(mappedBy = "course")
+    private Set<Review> reviews = new HashSet<>();
 }

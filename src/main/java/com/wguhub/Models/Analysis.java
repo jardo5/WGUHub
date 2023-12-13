@@ -1,34 +1,35 @@
 package com.wguhub.Models;
 
-import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.sql.Timestamp;
 
+import jakarta.persistence.*;
+import lombok.*;
+
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "analysis")
 public class Analysis {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int analysisId;
+    private int analysis_id;
 
-    @OneToOne
-    @JoinColumn(name = "course_id", referencedColumnName = "courseId")
+    @Column(nullable = false)
+    private int course_id;
+
+    @Column(nullable = false)
+    private Integer analysis_rating;
+
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String analysis_text;
+
+    @Column(nullable = false)
+    private Timestamp analysis_date;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id", nullable = false)
     private Course course;
-
-    @Column(name = "sentiment_score")
-    private int sentimentScore;
-
-    @Column(name = "source")
-    private String source;
-
-    @Column(name = "extracted_text")
-    private String extractedText;
-
-    @Column(name = "analysis_date_time")
-    private Timestamp analysisDateTime;
 }
