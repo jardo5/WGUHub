@@ -1,5 +1,6 @@
 package com.wguhub.Models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,5 +27,6 @@ public class Degree {
             joinColumns = @JoinColumn(name = "degree_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id")
     )
+    @JsonManagedReference
     private Set<Course> courses = new HashSet<>();
 }

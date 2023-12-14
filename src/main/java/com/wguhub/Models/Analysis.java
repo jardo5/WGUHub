@@ -1,8 +1,6 @@
 package com.wguhub.Models;
 
-
 import java.sql.Timestamp;
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,9 +14,6 @@ public class Analysis {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int analysis_id;
-
-    @Column(nullable = false)
-    private int course_id;
 
     @Column(nullable = false)
     private Integer analysis_rating;

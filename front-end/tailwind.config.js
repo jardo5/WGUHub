@@ -30,6 +30,7 @@ export default {
           "warning": "#ED8936",
           "info": "#4299E1",
           "text": "#DCE4F3",
+          "card": "#FFFFFF",
 
         },
         lightTheme: {
@@ -44,6 +45,7 @@ export default {
           "warning": "#F6AD55",
           "info": "#63B3ED",
           "text": "#2D3748",
+          "card": "#FFFFFF",
         },
       },
     ],

@@ -1,15 +1,20 @@
 import React from 'react';
-import Navbar from "./components/navbar.jsx";
-import Courses from "./components/courses.jsx";
-
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from "./components/Navbar.jsx";
+import Courses from "./components/Courses.jsx";
+import CourseReview from "./components/CourseReview.jsx";
 
 function App() {
     return (
-        <div className="h-full w-full flex flex-col">
-            <Navbar />
-            <Courses />
-        </div>
+        <Router>
+            <div className="h-full w-full flex flex-col">
+                <Navbar />
+                <Routes>
+                    <Route exact path="/" element={<Courses />} />
+                    <Route path="/course/:courseId" element={<CourseReview />} />
+                </Routes>
+            </div>
+        </Router>
     );
 }
 

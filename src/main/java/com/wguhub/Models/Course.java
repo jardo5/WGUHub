@@ -1,5 +1,6 @@
 package com.wguhub.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,18 +24,14 @@ public class Course {
     @Column(nullable = false)
     private String course_name;
 
-    @Column(columnDefinition = "TEXT")
-    private String course_description;
-
     @Column(nullable = false)
     private Integer course_credits;
 
-    @Column(nullable = false)
-    private Integer course_degree;
-
     @ManyToMany(mappedBy = "courses")
+    @JsonBackReference
     private Set<Degree> degrees = new HashSet<>();
 
     @OneToMany(mappedBy = "course")
+    @JsonBackReference
     private Set<Review> reviews = new HashSet<>();
 }

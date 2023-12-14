@@ -2,6 +2,7 @@ package com.wguhub.Models;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,12 +16,6 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int review_id;
-
-    @Column(nullable = false)
-    private int course_id;
-
-    @Column(nullable = false)
-    private int user_id;
 
     @Column(nullable = false)
     private Integer review_rating;
@@ -39,10 +34,10 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)
+    @JsonBackReference
     private Course course;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 }
-
