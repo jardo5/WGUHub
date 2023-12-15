@@ -15,22 +15,23 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int review_id;
+    @Column(name = "review_id")
+    private int reviewId;
 
-    @Column(nullable = false)
-    private Integer review_rating;
+    @Column(name = "review_rating", nullable = false)
+    private Integer reviewRating;
 
-    @Column(nullable = false)
-    private Integer review_difficulty;
+    @Column(name = "review_difficulty", nullable = false)
+    private Integer reviewDifficulty;
 
-    @Column(nullable = false)
-    private Integer review_workload;
+    @Column(name = "review_workload", nullable = false)
+    private Integer reviewWorkload;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
-    private String review_text;
+    @Column(name = "review_text", columnDefinition = "TEXT", nullable = false)
+    private String reviewText;
 
-    @Column(nullable = false)
-    private Timestamp review_date;
+    @Column(name = "review_date", nullable = false)
+    private Timestamp reviewDate;
 
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)

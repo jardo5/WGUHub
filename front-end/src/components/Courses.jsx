@@ -25,7 +25,7 @@ function Courses({ searchTerm }) {
         if (term) {
             try {
                 const response = await axios.get(`http://localhost:8080/api/courses/search?searchTerm=${term}`);
-                setCourses(response.data.slice(0, 10));
+                setCourses(response.data.slice(0, 25));
                 setHasMore(false);
             } catch (error) {
                 console.error('Error searching courses:', error);
@@ -34,7 +34,7 @@ function Courses({ searchTerm }) {
             // Reset the state for infinite scroll when search term is cleared
             setCourses([]);
             setHasMore(true);
-            fetchCourses(0, 10);
+            fetchCourses(0, 25);
         }
     }, 500), []);
 
@@ -43,7 +43,7 @@ function Courses({ searchTerm }) {
     }, [searchTerm, debouncedSearch]);
 
     const loadMoreCourses = () => {
-        fetchCourses(courses.length, courses.length + 10);
+        fetchCourses(courses.length, courses.length + 25);
     };
 
     return (
@@ -52,17 +52,21 @@ function Courses({ searchTerm }) {
                 dataLength={courses.length}
                 next={loadMoreCourses}
                 hasMore={hasMore}
-                loader={<h4>Loading...</h4>}
+                loader={
+                    <div className="flex justify-center items-center py-5">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                    </div>
+                }
                 endMessage={<p className="flex flex-col items-center fill-accent text-accent my-12"><Emote /> No more courses to load.</p>}
             >
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {courses.map(course => (
-                        <div key={course.course_id} className="bg-secondary rounded-lg shadow-md overflow-hidden">
+                        <div key={course.courseId} className="bg-secondary rounded-lg shadow-md overflow-hidden">  {/* Updated key to courseId */}
                             <div className="p-4">
-                                <p className="text-gray-600">{course.course_code}</p>
-                                <h3 className="text-xl font-semibold text-gray-800">{course.course_name}</h3>
-                                <p className="text-gray-600">Credits: {course.course_credits}</p>
-                                <Link to={`/course/${course.course_code}`} className="text-indigo-600 hover:text-indigo-800">View Reviews</Link>
+                                <p className="text-gray-600">{course.courseCode}</p>
+                                <h3 className="text-xl font-semibold text-gray-800">{course.courseName}</h3>
+                                <p className="text-gray-600">Credits: {course.courseCredits}</p>
+                                <Link to={`/course/${course.courseCode}`} className="text-indigo-600 hover:text-indigo-800">View Reviews</Link>
                             </div>
                         </div>
                     ))}

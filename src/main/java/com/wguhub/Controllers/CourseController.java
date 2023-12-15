@@ -23,9 +23,9 @@ public class CourseController {
     @GetMapping("/search")
     public List<Course> searchCourses(@RequestParam(required = false) String searchTerm) {
         if (searchTerm != null && !searchTerm.trim().isEmpty()) {
-            return courseRepository.findByCourseNameOrCourseCodeContainingIgnoreCase(searchTerm);
+            return courseRepository.findByCourseNameContainingIgnoreCaseOrCourseCodeContainingIgnoreCase(searchTerm, searchTerm);
         } else {
-            return getAllCourses(); // Or handle as needed
+            return getAllCourses();
         }
     }
 }

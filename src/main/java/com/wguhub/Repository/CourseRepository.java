@@ -8,10 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CourseRepository extends JpaRepository<Course, Integer> {
-
-    @Query("SELECT c FROM Course c WHERE " +
-            "LOWER(c.course_name) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
-            "LOWER(c.course_code) LIKE LOWER(CONCAT('%', :searchTerm, '%'))")
-    List<Course> findByCourseNameOrCourseCodeContainingIgnoreCase(String searchTerm);
+public interface CourseRepository extends JpaRepository<Course, Long> {
+    List<Course> findByCourseNameContainingIgnoreCaseOrCourseCodeContainingIgnoreCase(String courseName, String courseCode);
 }

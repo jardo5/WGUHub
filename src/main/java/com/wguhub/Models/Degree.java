@@ -16,10 +16,11 @@ public class Degree {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int degree_id;
+    @Column(name="degree_id", nullable = false)
+    private int degreeId;
 
-    @Column(nullable = false, length = 255)
-    private String degree_name;
+    @Column(name="degree_name", nullable = false)
+    private String degreeName;
 
     @ManyToMany
     @JoinTable(

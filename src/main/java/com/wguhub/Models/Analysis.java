@@ -13,16 +13,17 @@ public class Analysis {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int analysis_id;
+    @Column(name = "analysis_id", nullable = false)
+    private int analysisId;
 
-    @Column(nullable = false)
-    private Integer analysis_rating;
+    @Column(name = "analysis_rating", nullable = false)
+    private Integer analysisRating;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
-    private String analysis_text;
+    @Column(columnDefinition = "TEXT", name = "analysis_text", nullable = false)
+    private String analysisText;
 
-    @Column(nullable = false)
-    private Timestamp analysis_date;
+    @Column(name = "analysis_date", nullable = false)
+    private Timestamp analysisDate;
 
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)

@@ -16,16 +16,17 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int course_id;
+    @Column(name="course_id", nullable = false)
+    private int courseId;
 
-    @Column(nullable = false)
-    private String course_code;
+    @Column(name = "course_code", nullable = false)
+    private String courseCode;
 
-    @Column(nullable = false)
-    private String course_name;
+    @Column(name = "course_name", nullable = false)
+    private String courseName;
 
-    @Column(nullable = false)
-    private Integer course_credits;
+    @Column(name = "course_credits", nullable = false)
+    private Integer courseCredits;
 
     @ManyToMany(mappedBy = "courses")
     @JsonBackReference

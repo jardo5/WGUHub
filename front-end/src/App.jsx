@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar.jsx";
 import Courses from "./components/Courses.jsx";
 import CourseReview from "./components/CourseReview.jsx";
 import SearchFunctions from "./components/SearchFunctions.jsx";
+import Filter from "./components/Filter.jsx";
 
 
 function App() {
@@ -14,7 +15,10 @@ function App() {
         <Router>
             <div className="h-full w-full flex flex-col">
                 <Navbar />
-                <SearchFunctions setSearchTerm={setSearchTerm} />
+                <div className="flex flex-row justify-center items-center">
+                    <SearchFunctions setSearchTerm={setSearchTerm} />
+                    <Filter />
+                </div>
                 <Routes>
                     <Route exact path="/" element={<Courses searchTerm={searchTerm} />} />
                     <Route path="/course/:courseId" element={<CourseReview />} />
