@@ -5,13 +5,17 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import Emote from '@material-symbols/svg-500/outlined/emoticon.svg?react';
 import _ from 'lodash';
 
-function Courses({ searchTerm }) {
+function Courses({ searchTerm, selectedDegreeId }) {
     const [courses, setCourses] = useState([]);
     const [hasMore, setHasMore] = useState(true);
 
-    const fetchCourses = async (from, to) => {
+    const fetchCourses = async (from, to, degreeId) => {
         try {
-            const response = await axios.get('http://localhost:8080/api/courses');
+            let url = 'http://localhost:8080/api/courses';
+            if (degreeId) {
+                url += `/byDegree?degreeId=${degreeId}`;
+            }
+            const response = await axios.get(url);
             const newCourses = response.data.slice(from, to);
 
             setCourses(prevCourses => from === 0 ? newCourses : [...prevCourses, ...newCourses]);
@@ -30,20 +34,21 @@ function Courses({ searchTerm }) {
             } catch (error) {
                 console.error('Error searching courses:', error);
             }
+        } else if (selectedDegreeId) {
+            fetchCourses(0, 25, selectedDegreeId);
         } else {
-            // Reset the state for infinite scroll when search term is cleared
             setCourses([]);
             setHasMore(true);
             fetchCourses(0, 25);
         }
-    }, 500), []);
+    }, 500), [selectedDegreeId]);
 
     useEffect(() => {
         debouncedSearch(searchTerm);
     }, [searchTerm, debouncedSearch]);
 
     const loadMoreCourses = () => {
-        fetchCourses(courses.length, courses.length + 25);
+        fetchCourses(courses.length, courses.length + 25, selectedDegreeId);
     };
 
     return (
@@ -61,7 +66,7 @@ function Courses({ searchTerm }) {
             >
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {courses.map(course => (
-                        <div key={course.courseId} className="bg-secondary rounded-lg shadow-md overflow-hidden">  {/* Updated key to courseId */}
+                        <div key={course.courseId} className="bg-secondary rounded-lg shadow-md overflow-hidden">
                             <div className="p-4">
                                 <p className="text-gray-600">{course.courseCode}</p>
                                 <h3 className="text-xl font-semibold text-gray-800">{course.courseName}</h3>

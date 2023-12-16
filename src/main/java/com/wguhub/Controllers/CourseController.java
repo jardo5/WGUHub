@@ -28,4 +28,9 @@ public class CourseController {
             return getAllCourses();
         }
     }
+
+    @GetMapping("/byDegree")
+    public List<Course> getCoursesByDegree(@RequestParam int degreeId) {
+        return courseRepository.findByDegreesDegreeId(degreeId);
+    }
 }

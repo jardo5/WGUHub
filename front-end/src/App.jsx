@@ -10,6 +10,11 @@ import Filter from "./components/Filter.jsx";
 function App() {
 
     const [searchTerm, setSearchTerm] = useState('');
+    const [selectedDegreeId, setSelectedDegreeId] = useState(null);
+
+    const handleDegreeSelect = (degreeId) => {
+        setSelectedDegreeId(degreeId);
+    };
 
     return (
         <Router>
@@ -17,10 +22,10 @@ function App() {
                 <Navbar />
                 <div className="flex flex-row justify-center items-center">
                     <SearchFunctions setSearchTerm={setSearchTerm} />
-                    <Filter />
+                    <Filter onDegreeSelect={handleDegreeSelect} />
                 </div>
                 <Routes>
-                    <Route exact path="/" element={<Courses searchTerm={searchTerm} />} />
+                    <Route exact path="/" element={<Courses searchTerm={searchTerm} selectedDegreeId={selectedDegreeId} />} />
                     <Route path="/course/:courseId" element={<CourseReview />} />
                 </Routes>
             </div>
