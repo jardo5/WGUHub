@@ -3,9 +3,9 @@ import pandas as pd
 import psycopg2
 
 def connect_to_db():
-    db_url = "localhost:5432/wguhub"
-    username = "postgres"
-    password = "user"
+    db_url = ""
+    username = ""
+    password = ""
 
     return psycopg2.connect(
         dbname=db_url.split("/")[-1],

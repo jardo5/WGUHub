@@ -1,28 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import FilterSVG from '@material-symbols/svg-500/outlined/filter_alt.svg?react';
 import Cancel from '@material-symbols/svg-500/outlined/cancel.svg?react';
+import {fetchDegreeNames} from "../../services/DegreeService.js";
 
 function Filter({ onDegreeSelect }) {
     const [originalDegrees, setOriginalDegrees] = useState([]);
     const [degrees, setDegrees] = useState([]);
     const [selectedDegree, setSelectedDegree] = useState(null);
-
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     useEffect(() => {
         if (isDropdownOpen) {
-            const fetchDegrees = async () => {
+            const fetchDegreesData = async () => {
                 try {
-                    const response = await axios.get('http://localhost:8080/api/degrees/names');
-                    setOriginalDegrees(response.data);
-                    setDegrees(response.data);
+                    const degreeNames = await fetchDegreeNames();
+                    setOriginalDegrees(degreeNames);
+                    setDegrees(degreeNames);
                 } catch (error) {
                     console.error('Error fetching degrees:', error);
                 }
             };
 
-            fetchDegrees();
+            fetchDegreesData();
         }
     }, [isDropdownOpen]);
 

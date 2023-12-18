@@ -1,32 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Emote from '@material-symbols/svg-500/outlined/emoticon.svg?react';
 import _ from 'lodash';
-import CourseSearch from "./CourseSearch.jsx";
+import { fetchCourses, searchCourses } from '../../services/CourseService.js'; // Import the CourseService functions
 
 function Courses({ selectedDegreeId, searchTerm }) {
     const [courses, setCourses] = useState([]);
     const [hasMore, setHasMore] = useState(true);
 
-    const fetchCourses = async (from, to, degreeId, searchTerm) => {
+    const fetchMoreCourses = async (from, to) => {
         try {
-            let url = 'http://localhost:8080/api/courses';
-
-            // If a degree is selected, filter by degreeId
-            if (degreeId) {
-                url += `/byDegree?degreeId=${degreeId}`;
-            }
-
-            // Add search term if available
-            if (searchTerm) {
-                url += `&searchTerm=${searchTerm}`;
-            }
-
-            const response = await axios.get(url);
-            const newCourses = response.data.slice(from, to);
-
+            const newCourses = await fetchCourses(selectedDegreeId, searchTerm, from, to);
             setCourses(prevCourses => from === 0 ? newCourses : [...prevCourses, ...newCourses]);
             setHasMore(newCourses.length > 0);
         } catch (error) {
@@ -34,30 +19,33 @@ function Courses({ selectedDegreeId, searchTerm }) {
         }
     };
 
-    const debouncedSearch = useCallback(_.debounce(async (term) => {
-        if (term) {
-            try {
-                const response = await axios.get(`http://localhost:8080/api/courses/search?searchTerm=${term}`);
-                setCourses(response.data.slice(0, 25));
-                setHasMore(false);
-            } catch (error) {
-                console.error('Error searching courses:', error);
+    const debouncedSearch = useCallback(
+        _.debounce(async term => {
+            if (term) {
+                try {
+                    const response = await searchCourses(term, 25);
+                    setCourses(response);
+                    setHasMore(false);
+                } catch (error) {
+                    console.error('Error searching courses:', error);
+                }
+            } else if (selectedDegreeId) {
+                fetchMoreCourses(0, 25);
+            } else {
+                setCourses([]);
+                setHasMore(true);
+                fetchMoreCourses(0, 25);
             }
-        } else if (selectedDegreeId) {
-            fetchCourses(0, 25, selectedDegreeId, searchTerm);
-        } else {
-            setCourses([]);
-            setHasMore(true);
-            fetchCourses(0, 25, null, searchTerm);
-        }
-    }, 500), [selectedDegreeId]);
+        }, 500),
+        [selectedDegreeId]
+    );
 
     useEffect(() => {
         debouncedSearch(searchTerm);
     }, [searchTerm, debouncedSearch]);
 
     const loadMoreCourses = () => {
-        fetchCourses(courses.length, courses.length + 25, selectedDegreeId, searchTerm);
+        fetchMoreCourses(courses.length, courses.length + 25);
     };
 
     return (

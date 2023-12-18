@@ -93,9 +93,9 @@ print((programs))
 
 try:
 
-    db_url = "localhost:5432/wguhub"
-    username = "postgres"
-    password = "user"
+    db_url = ""
+    username = ""
+    password = ""
 
     conn = psycopg2.connect(
         dbname=db_url.split("/")[-1],

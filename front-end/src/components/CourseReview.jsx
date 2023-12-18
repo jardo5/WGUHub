@@ -6,39 +6,35 @@ import Workload from '@material-symbols/svg-500/outlined/work.svg?react';
 import Difficulty from '@material-symbols/svg-500/outlined/trending_up.svg?react';
 
 import VerifiedUser from '@material-symbols/svg-500/outlined/verified_user.svg?react';
+import {fetchCourseByCourseCode} from "../services/CourseService.js";
+import {fetchReviewsByCourseCode} from "../services/ReviewService.js";
 
 
 
-function CourseReview(){
+function CourseReview() {
     const { courseCode } = useParams();
     const [course, setCourse] = useState({});
     const [reviews, setReviews] = useState([]);
-
     const [averageRating, setAverageRating] = useState(0);
     const [averageDifficulty, setAverageDifficulty] = useState(0);
     const [averageWorkload, setAverageWorkload] = useState(0);
 
-
     useEffect(() => {
-        fetch(`http://localhost:8080/api/reviews/course/${courseCode}`)
-            .then(response => response.json())
+        // Fetch reviews using courseCode
+        fetchReviewsByCourseCode(courseCode)
             .then(data => {
-                setReviews(data.reviews); // Assuming 'reviews' is the array of review DTOs
+                setReviews(data.reviews);
                 setAverageRating(data.averageRating);
                 setAverageDifficulty(data.averageDifficulty);
                 setAverageWorkload(data.averageWorkload);
             })
             .catch(error => console.error('Error fetching reviews:', error));
-    }, [courseCode]);
 
-
-    // Fetch course using courseCode
-    useEffect(() => {
-        fetch(`http://localhost:8080/api/courses/code/${courseCode}`)
-            .then(response => response.json())
+        // Fetch course using courseCode
+        fetchCourseByCourseCode(courseCode)
             .then(data => setCourse(data))
             .catch(error => console.error('Error fetching course:', error));
-    },[courseCode]);
+    }, [courseCode]);
 
     return (
         <div className="flex items-center justify-center flex-col my-2 py-2">
