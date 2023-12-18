@@ -1,6 +1,7 @@
 package com.wguhub.Services;
 
 import com.wguhub.DTOs.ReviewDTO;
+import com.wguhub.DTOs.CourseReviewSummaryDTO;
 import com.wguhub.Models.Review;
 import com.wguhub.Repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,13 +19,31 @@ public class ReviewService {
     @Autowired
     private ReviewRepository reviewRepository;
 
-    public List<ReviewDTO> getReviewsByCourseCode(String courseCode) {
+    public CourseReviewSummaryDTO getReviewsByCourseCode(String courseCode) {
         List<Review> reviews = reviewRepository.findByCourseCourseCode(courseCode);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 
-        return reviews.stream()
+        List<ReviewDTO> reviewDTOs = reviews.stream()
                 .map(review -> convertToReviewDTO(review, formatter))
                 .collect(Collectors.toList());
+
+        DoubleSummaryStatistics ratingStats = reviewDTOs.stream()
+                .mapToDouble(ReviewDTO::getReviewRating)
+                .summaryStatistics();
+        DoubleSummaryStatistics difficultyStats = reviewDTOs.stream()
+                .mapToDouble(ReviewDTO::getReviewDifficulty)
+                .summaryStatistics();
+        DoubleSummaryStatistics workloadStats = reviewDTOs.stream()
+                .mapToDouble(ReviewDTO::getReviewWorkload)
+                .summaryStatistics();
+
+        CourseReviewSummaryDTO summaryDTO = new CourseReviewSummaryDTO();
+        summaryDTO.setReviews(reviewDTOs);
+        summaryDTO.setAverageRating(ratingStats.getAverage());
+        summaryDTO.setAverageDifficulty(difficultyStats.getAverage());
+        summaryDTO.setAverageWorkload(workloadStats.getAverage());
+
+        return summaryDTO;
     }
 
     private ReviewDTO convertToReviewDTO(Review review, DateTimeFormatter formatter) {

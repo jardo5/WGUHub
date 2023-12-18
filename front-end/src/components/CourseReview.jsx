@@ -14,13 +14,23 @@ function CourseReview(){
     const [course, setCourse] = useState({});
     const [reviews, setReviews] = useState([]);
 
+    const [averageRating, setAverageRating] = useState(0);
+    const [averageDifficulty, setAverageDifficulty] = useState(0);
+    const [averageWorkload, setAverageWorkload] = useState(0);
+
+
     useEffect(() => {
-        // Fetch reviews directly using courseCode
         fetch(`http://localhost:8080/api/reviews/course/${courseCode}`)
             .then(response => response.json())
-            .then(data => setReviews(data))
+            .then(data => {
+                setReviews(data.reviews); // Assuming 'reviews' is the array of review DTOs
+                setAverageRating(data.averageRating);
+                setAverageDifficulty(data.averageDifficulty);
+                setAverageWorkload(data.averageWorkload);
+            })
             .catch(error => console.error('Error fetching reviews:', error));
     }, [courseCode]);
+
 
     // Fetch course using courseCode
     useEffect(() => {
@@ -29,7 +39,6 @@ function CourseReview(){
             .then(data => setCourse(data))
             .catch(error => console.error('Error fetching course:', error));
     },[courseCode]);
-    console.log(course);
 
     return (
         <div className="flex items-center justify-center flex-col my-2 py-2">
@@ -40,17 +49,17 @@ function CourseReview(){
                 <div className="flex flex-col p-2 mx-2 items-center gap-1 ">
                     <Overall className="fill-primary h-10 w-10" />
                     <h1>Overall</h1>
-                    <span className="badge badge-outline badge-primary">2.55 / 5</span>
+                    <span className="badge badge-outline badge-primary">{averageRating.toFixed(2)} / 5</span>
                 </div>
                 <div className="flex flex-col p-2 mx-2 items-center gap-1">
                     <Difficulty className="fill-primary h-10 w-10" />
                     <h1>Difficulty</h1>
-                    <span className="badge badge-outline badge-primary">2.54 / 5</span>
+                    <span className="badge badge-outline badge-primary">{averageDifficulty.toFixed(2)} / 5</span>
                 </div>
                 <div className="flex flex-col p-2 mx-2 items-center gap-1">
                     <Workload className="fill-primary h-10 w-10" />
                     <h1>Workload</h1>
-                    <span className="badge badge-outline badge-primary">1.53 / 5</span>
+                    <span className="badge badge-outline badge-primary">{averageWorkload.toFixed(2)} / 5</span>
                 </div>
             </div>
             <div className="text-xl flex-col border-b border-primary flex justify-start mb-4 items-center gap-2">
