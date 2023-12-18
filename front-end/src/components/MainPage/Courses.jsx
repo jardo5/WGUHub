@@ -4,17 +4,26 @@ import { Link } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Emote from '@material-symbols/svg-500/outlined/emoticon.svg?react';
 import _ from 'lodash';
+import CourseSearch from "./CourseSearch.jsx";
 
-function Courses({ searchTerm, selectedDegreeId }) {
+function Courses({ selectedDegreeId, searchTerm }) {
     const [courses, setCourses] = useState([]);
     const [hasMore, setHasMore] = useState(true);
 
-    const fetchCourses = async (from, to, degreeId) => {
+    const fetchCourses = async (from, to, degreeId, searchTerm) => {
         try {
             let url = 'http://localhost:8080/api/courses';
+
+            // If a degree is selected, filter by degreeId
             if (degreeId) {
                 url += `/byDegree?degreeId=${degreeId}`;
             }
+
+            // Add search term if available
+            if (searchTerm) {
+                url += `&searchTerm=${searchTerm}`;
+            }
+
             const response = await axios.get(url);
             const newCourses = response.data.slice(from, to);
 
@@ -35,11 +44,11 @@ function Courses({ searchTerm, selectedDegreeId }) {
                 console.error('Error searching courses:', error);
             }
         } else if (selectedDegreeId) {
-            fetchCourses(0, 25, selectedDegreeId);
+            fetchCourses(0, 25, selectedDegreeId, searchTerm);
         } else {
             setCourses([]);
             setHasMore(true);
-            fetchCourses(0, 25);
+            fetchCourses(0, 25, null, searchTerm);
         }
     }, 500), [selectedDegreeId]);
 
@@ -48,7 +57,7 @@ function Courses({ searchTerm, selectedDegreeId }) {
     }, [searchTerm, debouncedSearch]);
 
     const loadMoreCourses = () => {
-        fetchCourses(courses.length, courses.length + 25, selectedDegreeId);
+        fetchCourses(courses.length, courses.length + 25, selectedDegreeId, searchTerm);
     };
 
     return (

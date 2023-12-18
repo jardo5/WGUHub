@@ -4,6 +4,8 @@ import com.wguhub.Models.Course;
 import com.wguhub.Repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+
 
 import java.util.List;
 
@@ -28,6 +30,14 @@ public class CourseController {
             return getAllCourses();
         }
     }
+
+    @GetMapping("/code/{courseCode}")
+    public ResponseEntity<Course> getCourseByCode(@PathVariable String courseCode) {
+        return courseRepository.findByCourseCode(courseCode)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 
     @GetMapping("/byDegree")
     public List<Course> getCoursesByDegree(@RequestParam int degreeId) {

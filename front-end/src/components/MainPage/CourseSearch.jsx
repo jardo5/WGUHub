@@ -1,4 +1,6 @@
-function SearchFunctions({ setSearchTerm }) {
+import React from 'react';
+
+function CourseSearch({ setSearchTerm }) {
     const handleSearchChange = (e) => {
         const term = e.target.value;
         setSearchTerm(term);
@@ -18,4 +20,4 @@ function SearchFunctions({ setSearchTerm }) {
     );
 }
 
-export default SearchFunctions;
+export default CourseSearch;

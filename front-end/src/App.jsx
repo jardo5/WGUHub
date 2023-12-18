@@ -1,33 +1,19 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from "./components/Navbar.jsx";
-import Courses from "./components/Courses.jsx";
-import CourseReview from "./components/CourseReview.jsx";
-import SearchFunctions from "./components/SearchFunctions.jsx";
-import Filter from "./components/Filter.jsx";
-
+import { BrowserRouter as Router } from 'react-router-dom';
+import Navbar from './components/Navbar.jsx';
+import Content from './components/Content.jsx';
 
 function App() {
-
-    const [searchTerm, setSearchTerm] = useState('');
     const [selectedDegreeId, setSelectedDegreeId] = useState(null);
-
-    const handleDegreeSelect = (degreeId) => {
-        setSelectedDegreeId(degreeId);
-    };
 
     return (
         <Router>
-            <div className="h-full w-full flex flex-col">
+            <div className="h-full w-full flex flex-col bg-base-200 overflow-x-clip">
                 <Navbar />
-                <div className="flex flex-row justify-center items-center">
-                    <SearchFunctions setSearchTerm={setSearchTerm} />
-                    <Filter onDegreeSelect={handleDegreeSelect} />
-                </div>
-                <Routes>
-                    <Route exact path="/" element={<Courses searchTerm={searchTerm} selectedDegreeId={selectedDegreeId} />} />
-                    <Route path="/course/:courseId" element={<CourseReview />} />
-                </Routes>
+                <Content
+                    selectedDegreeId={selectedDegreeId}
+                    setSelectedDegreeId={setSelectedDegreeId}
+                />
             </div>
         </Router>
     );

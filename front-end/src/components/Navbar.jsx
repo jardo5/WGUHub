@@ -1,6 +1,6 @@
 import School from '@material-symbols/svg-500/outlined/school.svg?react';
 
-function navbar() {
+function Navbar() {
     return (
         <nav className="navbar bg-base-100 border-b border-secondary sticky">
             <div className="flex-1">
@@ -27,4 +27,4 @@ function navbar() {
     );
 }
 
-export default navbar;
+export default Navbar;
