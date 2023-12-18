@@ -1,5 +1,6 @@
 package com.wguhub.Controllers;
 
+import com.wguhub.DTOs.ReviewDTO;
 import com.wguhub.Models.Review;
 import com.wguhub.Services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,8 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
-    @GetMapping("/course/{courseId}")
-    public List<Review> getReviewsByCourseId(@PathVariable Integer courseId) {
-        return reviewService.getReviewsByCourseId(courseId);
+    @GetMapping("/course/{courseCode}")
+    public List<ReviewDTO> getReviewsByCourseCode(@PathVariable String courseCode) {
+        return reviewService.getReviewsByCourseCode(courseCode);
     }
 }

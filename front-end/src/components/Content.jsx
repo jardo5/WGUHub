@@ -20,7 +20,7 @@ function Content({ setSelectedDegreeId, selectedDegreeId }) {
             )}
             <Routes>
                 <Route exact path="/" element={<Courses selectedDegreeId={selectedDegreeId} searchTerm={searchTerm} />} />
-                <Route path="/course/:courseId" element={<CourseReview />} />
+                <Route path="/course/:courseCode" element={<CourseReview />} />
             </Routes>
         </div>
     );
