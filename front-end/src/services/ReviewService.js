@@ -12,6 +12,7 @@ export const fetchReviewsByCourseCode = async (courseCode) => {
     }
 };
 
+// Function to submit a review
 export const submitReview = async (reviewData) => {
     try {
         const response = await axios.post(`${BASE_URL}/submit`, reviewData);
@@ -21,6 +22,7 @@ export const submitReview = async (reviewData) => {
     }
 };
 
+// Function to verify a review
 export const verifyReview = async (token) => {
     try {
         const response = await axios.get(`${BASE_URL}/verify/${token}`);

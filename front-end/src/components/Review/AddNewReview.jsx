@@ -1,11 +1,10 @@
+import React, { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import React, {useState} from 'react';
-
+import { submitReview } from '../../services/ReviewService.js'; // Import the service function
 import Overall from '@material-symbols/svg-500/outlined/star.svg?react';
 import Workload from '@material-symbols/svg-500/outlined/work.svg?react';
 import Difficulty from '@material-symbols/svg-500/outlined/trending_up.svg?react';
 import Review from '@material-symbols/svg-500/outlined/edit.svg?react';
-import {submitReview} from "../../services/ReviewService.js";
 
 function AddNewReview() {
     const { courseCode } = useParams();
@@ -19,12 +18,27 @@ function AddNewReview() {
     const [email, setEmail] = useState('');
 
     const isFormValid = overallRating && difficultyRating && workloadRating && reviewText && email;
+    const [submissionStatus, setSubmissionStatus] = useState(null);
+
+    useEffect(() => {
+        // If submissionStatus is set (success or error), hide it after 3 seconds
+        if (submissionStatus) {
+            const timeoutId = setTimeout(() => {
+                setSubmissionStatus(null);
+            }, 3000);
+
+            // Clear the timeout when the component unmounts
+            return () => {
+                clearTimeout(timeoutId);
+            };
+        }
+    }, [submissionStatus]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (!isFormValid) {
             console.error("Form is incomplete");
-            return; // Exit early if form is not valid
+            return;
         }
         try {
             // Create an object with review data
@@ -34,23 +48,37 @@ function AddNewReview() {
                 reviewDifficulty: difficultyRating,
                 reviewWorkload: workloadRating,
                 reviewText: reviewText,
-                email: email + "@wgu.edu"
+                email: email + "@wgu.edu",
             };
 
             // Call the submitReview function from the service
             await submitReview(reviewData);
 
-            alert("Review submitted successfully. Please check your email to verify.");
+            setSubmissionStatus('success');
         } catch (error) {
             if (error.response && error.response.data) {
-                alert('Error: ' + error.response.data);
+                setSubmissionStatus('error');
             } else {
-                alert('An error occurred during verification.');
+                setSubmissionStatus('error');
             }
         }
     };
 
-
+    const renderSubmissionStatus = () => {
+        if (submissionStatus === 'success') {
+            return (
+                <div className="alert alert-success w-2/3 animate animate-pulse fade-out">
+                    <span>Review submitted successfully. Please check your email to verify.</span>
+                </div>
+            );
+        } else if (submissionStatus === 'error') {
+            return (
+                <div className="alert alert-error w-2/3 animate animate-pulse fade-out">
+                    <span>Error: Review submission failed. You can only have 1 review per course.</span>
+                </div>
+            );
+        }
+    };
 
     const renderRating = (name, rating, setRating) => (
         <div className="flex flex-row gap-2">
@@ -70,9 +98,11 @@ function AddNewReview() {
         </div>
     );
 
-
     return (
-        <div className="flex items-center justify-center flex-col my-2 py-2">
+        <div className="relative flex items-center justify-center flex-col my-2 py-2">
+            <div className="absolute inset-x-0 top-0 flex justify-center">
+                {submissionStatus && renderSubmissionStatus()}
+            </div>
             <div className="text-2xl flex flex-col items-center justify-center my-4">
                 <h1 className="border-b-primary border-b">{courseCode} - {courseName}</h1>
             </div>
@@ -97,7 +127,7 @@ function AddNewReview() {
                 </section>
                 {/* Review Text */}
                 <section className="w-full h-56 flex justify-center items-center flex-col border border-primary gap-2">
-                    <Review className="fill-primary h-10 w-10"/>
+                    <Review className="fill-primary h-10 w-10" />
                     <h1 className="font-extrabold">Review</h1>
                     <textarea
                         className="textarea textarea-bordered textarea-secondary h-1/2 w-3/4"
@@ -119,8 +149,8 @@ function AddNewReview() {
                                 onChange={(e) => setEmail(e.target.value)}
                             />
                             <span className="flex items-center border border-primary rounded-r-md px-2">
-                                @wgu.edu
-                            </span>
+                @wgu.edu
+              </span>
                         </div>
                     </div>
                     <button
