@@ -30,6 +30,7 @@ public class Course {
 
     @ManyToMany(mappedBy = "courses")
     @JsonBackReference
+    @ToString.Exclude
     private Set<Degree> degrees = new HashSet<>();
 
     @OneToMany(mappedBy = "course")

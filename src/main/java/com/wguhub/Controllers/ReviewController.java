@@ -1,8 +1,11 @@
 package com.wguhub.Controllers;
 
 import com.wguhub.DTOs.CourseReviewSummaryDTO;
+import com.wguhub.DTOs.InitialReviewDTO;
 import com.wguhub.Services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,5 +21,25 @@ public class ReviewController {
     @GetMapping("/course/{courseCode}")
     public CourseReviewSummaryDTO getReviewsByCourseCode(@PathVariable String courseCode) {
         return reviewService.getReviewsByCourseCode(courseCode);
+    }
+
+    @PostMapping("/submit")
+    public ResponseEntity<?> submitReview(@RequestBody InitialReviewDTO reviewDTO) {
+        try {
+            reviewService.processInitialReview(reviewDTO);
+            return new ResponseEntity<>("Review submitted, please check your email to verify.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/verify/{token}")
+    public ResponseEntity<?> verifyEmail(@PathVariable String token) {
+        try {
+            reviewService.verifyReview(token);
+            return new ResponseEntity<>("Email verified, review published.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 }

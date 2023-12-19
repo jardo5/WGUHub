@@ -5,6 +5,7 @@ import Overall from '@material-symbols/svg-500/outlined/star.svg?react';
 import Workload from '@material-symbols/svg-500/outlined/work.svg?react';
 import Difficulty from '@material-symbols/svg-500/outlined/trending_up.svg?react';
 import Review from '@material-symbols/svg-500/outlined/edit.svg?react';
+import {submitReview} from "../../services/ReviewService.js";
 
 function AddNewReview() {
     const { courseCode } = useParams();
@@ -19,14 +20,37 @@ function AddNewReview() {
 
     const isFormValid = overallRating && difficultyRating && workloadRating && reviewText && email;
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        if (isFormValid) {
-            console.log("Form Submitted", { overallRating, difficultyRating, workloadRating, reviewText, email });
-        } else {
+        if (!isFormValid) {
             console.error("Form is incomplete");
+            return; // Exit early if form is not valid
+        }
+        try {
+            // Create an object with review data
+            const reviewData = {
+                courseCode: courseCode,
+                reviewRating: overallRating,
+                reviewDifficulty: difficultyRating,
+                reviewWorkload: workloadRating,
+                reviewText: reviewText,
+                email: email + "@wgu.edu"
+            };
+
+            // Call the submitReview function from the service
+            await submitReview(reviewData);
+
+            alert("Review submitted successfully. Please check your email to verify.");
+        } catch (error) {
+            if (error.response && error.response.data) {
+                alert('Error: ' + error.response.data);
+            } else {
+                alert('An error occurred during verification.');
+            }
         }
     };
+
+
 
     const renderRating = (name, rating, setRating) => (
         <div className="flex flex-row gap-2">

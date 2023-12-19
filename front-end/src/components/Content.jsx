@@ -5,6 +5,7 @@ import CourseReview from './Review/CourseReview.jsx';
 import Filter from './MainPage/Filter.jsx';
 import CourseSearch from './MainPage/CourseSearch.jsx';
 import AddNewReview from "./Review/AddNewReview.jsx";
+import VerifyReview from "./Review/VerfiyReview.jsx";
 
 function Content({ setSelectedDegreeId, selectedDegreeId }) {
     const [searchTerm, setSearchTerm] = useState(''); // State to handle search term
@@ -23,6 +24,7 @@ function Content({ setSelectedDegreeId, selectedDegreeId }) {
                 <Route exact path="/" element={<Courses selectedDegreeId={selectedDegreeId} searchTerm={searchTerm} />} />
                 <Route path="/course/:courseCode" element={<CourseReview />} />
                 <Route path="/course/:courseCode/new" element={<AddNewReview />} />
+                <Route path="/verify" element={<VerifyReview />} />
             </Routes>
         </div>
     );

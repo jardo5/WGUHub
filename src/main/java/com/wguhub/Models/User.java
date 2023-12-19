@@ -1,11 +1,13 @@
 package com.wguhub.Models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,15 +26,40 @@ public class User {
     @Column(name = "user_name", nullable = false, unique = true)
     private String userName;
 
-    @JsonIgnore
     @Column(name = "user_email", nullable = false, unique = true)
     private String userEmail;
 
-    @JsonIgnore
-    @Column(name = "user_password", nullable = false)
+    // Keep this if you plan to have admin users
+    @Column(name = "user_password")
     private String userPassword;
 
+    // New fields for email verification and user role
+    @Column(name = "is_email_verified", nullable = false)
+    private boolean isEmailVerified = false;
+
+    @Column(name = "email_verification_token")
+    private String emailVerificationToken;
+
+    @Column(name = "user_role", nullable = false)
+    private String userRole;
+
+    // Timestamps
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
+
     @OneToMany(mappedBy = "user")
-    @JsonBackReference
     private Set<Review> reviews = new HashSet<>();
 }
