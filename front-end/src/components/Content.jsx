@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useLocation, Routes, Route } from 'react-router-dom';
 import Courses from './MainPage/Courses.jsx';
-import CourseReview from './CourseReview.jsx';
+import CourseReview from './Review/CourseReview.jsx';
 import Filter from './MainPage/Filter.jsx';
-import CourseSearch from './MainPage/CourseSearch.jsx'; // Import CourseSearch
+import CourseSearch from './MainPage/CourseSearch.jsx';
+import AddNewReview from "./Review/AddNewReview.jsx";
 
 function Content({ setSelectedDegreeId, selectedDegreeId }) {
     const [searchTerm, setSearchTerm] = useState(''); // State to handle search term
@@ -21,6 +22,7 @@ function Content({ setSelectedDegreeId, selectedDegreeId }) {
             <Routes>
                 <Route exact path="/" element={<Courses selectedDegreeId={selectedDegreeId} searchTerm={searchTerm} />} />
                 <Route path="/course/:courseCode" element={<CourseReview />} />
+                <Route path="/course/:courseCode/new" element={<AddNewReview />} />
             </Routes>
         </div>
     );

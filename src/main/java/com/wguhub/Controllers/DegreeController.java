@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@CrossOrigin({"http://localhost:5173", "http://localhost:8080"})
+
 @RestController
 @RequestMapping("/api/degrees")
 public class DegreeController {

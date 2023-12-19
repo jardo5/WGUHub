@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-@CrossOrigin({"http://localhost:5173", "http://localhost:8080"})
+
 @RestController
 @RequestMapping("/api/courses")
 public class CourseController {

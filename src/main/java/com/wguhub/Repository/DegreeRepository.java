@@ -10,7 +10,6 @@ import java.util.List;
 
 @Repository
 public interface DegreeRepository extends JpaRepository<Degree, Integer> {
-    @Query("SELECT d.degreeName FROM Degree d")
-    List<String> findAllDegreeNames();
+
 }
 

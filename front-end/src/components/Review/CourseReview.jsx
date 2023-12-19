@@ -1,17 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import Overall from '@material-symbols/svg-500/outlined/star.svg?react';
 import Workload from '@material-symbols/svg-500/outlined/work.svg?react';
 import Difficulty from '@material-symbols/svg-500/outlined/trending_up.svg?react';
 
 import VerifiedUser from '@material-symbols/svg-500/outlined/verified_user.svg?react';
-import {fetchCourseByCourseCode} from "../services/CourseService.js";
-import {fetchReviewsByCourseCode} from "../services/ReviewService.js";
+import {fetchCourseByCourseCode} from "../../services/CourseService.js";
+import {fetchReviewsByCourseCode} from "../../services/ReviewService.js";
 
 
 
 function CourseReview() {
+    const navigate = useNavigate();
     const { courseCode } = useParams();
     const [course, setCourse] = useState({});
     const [reviews, setReviews] = useState([]);
@@ -35,6 +36,10 @@ function CourseReview() {
             .then(data => setCourse(data))
             .catch(error => console.error('Error fetching course:', error));
     }, [courseCode]);
+
+    const handleAddReview = () => {
+        navigate(`/course/${courseCode}/new?courseName=${encodeURIComponent(course.courseName)}`);
+    };
 
     return (
         <div className="flex items-center justify-center flex-col my-2 py-2">
@@ -62,6 +67,11 @@ function CourseReview() {
                 <h1 className="">
                     Credits: {course.courseCredits}
                 </h1>
+            </div>
+            <div className="flex justify-center items-center w-full">
+                <button className="btn btn-outline w-1/2 btn-accent" onClick={handleAddReview}>
+                    Add New Review
+                </button>
             </div>
             <div>
                 {reviews.map((review, index) => (
