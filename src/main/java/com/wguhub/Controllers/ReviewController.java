@@ -2,6 +2,7 @@ package com.wguhub.Controllers;
 
 import com.wguhub.DTOs.CourseReviewSummaryDTO;
 import com.wguhub.DTOs.InitialReviewDTO;
+import com.wguhub.DTOs.ReviewUpdateDTO;
 import com.wguhub.Services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,6 +41,26 @@ public class ReviewController {
             return new ResponseEntity<>("Email verified, review published.", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/{reviewId}")
+    public ResponseEntity<?> updateReview(@PathVariable int reviewId, @RequestBody ReviewUpdateDTO reviewUpdateDTO) {
+        try {
+            reviewService.updateReview(reviewId, reviewUpdateDTO);
+            return new ResponseEntity<>("Review updated successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/{reviewId}")
+    public ResponseEntity<?> deleteReview(@PathVariable int reviewId) {
+        try {
+            reviewService.deleteReview(reviewId);
+            return new ResponseEntity<>("Review deleted successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

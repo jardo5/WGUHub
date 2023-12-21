@@ -16,9 +16,9 @@ export const fetchReviewsByCourseCode = async (courseCode) => {
 export const submitReview = async (reviewData) => {
     try {
         const response = await axios.post(`${BASE_URL}/submit`, reviewData);
-        return response.data; // You can return the response data if needed
+        return response.data;
     } catch (error) {
-        throw error; // You can throw the error for handling in the component
+        throw error;
     }
 };
 
@@ -26,8 +26,27 @@ export const submitReview = async (reviewData) => {
 export const verifyReview = async (token) => {
     try {
         const response = await axios.get(`${BASE_URL}/verify/${token}`);
-        return response.data; // You can return any data you need here
+        return response.data;
     } catch (error) {
         throw error;
     }
 };
+
+// Function to update a review
+export const updateReview = async (reviewId, reviewData) => {
+    try {
+        const response = await axios.put(`${BASE_URL}/${reviewId}`, reviewData);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const deleteReviewSend = async (reviewId) => {
+    try {
+        await axios.delete(`${BASE_URL}/${reviewId}`);
+    } catch (error) {
+        throw error;
+    }
+};
+

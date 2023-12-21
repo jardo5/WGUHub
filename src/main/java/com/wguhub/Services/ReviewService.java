@@ -3,6 +3,7 @@ package com.wguhub.Services;
 import com.wguhub.DTOs.InitialReviewDTO;
 import com.wguhub.DTOs.ReviewDTO;
 import com.wguhub.DTOs.CourseReviewSummaryDTO;
+import com.wguhub.DTOs.ReviewUpdateDTO;
 import com.wguhub.Models.Course;
 import com.wguhub.Models.Review;
 import com.wguhub.Models.UnverifiedReview;
@@ -30,6 +31,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Service
 public class ReviewService {
 
@@ -202,9 +204,29 @@ public class ReviewService {
         return review;
     }
 
+    @Transactional
+    public void updateReview(int reviewId, ReviewUpdateDTO reviewUpdateDTO) throws Exception {
+        Optional<Review> reviewOptional = reviewRepository.findById(reviewId);
+        if (reviewOptional.isPresent()) {
+            Review review = reviewOptional.get();
+            review.setReviewText(reviewUpdateDTO.getReviewText());
+            reviewRepository.save(review);
+        } else {
+            throw new Exception("Review not found with id: " + reviewId);
+        }
+    }
+
+    @Transactional
+    public void deleteReview(int reviewId) throws Exception {
+        Optional<Review> reviewOptional = reviewRepository.findById(reviewId);
+        if (reviewOptional.isPresent()) {
+            Review review = reviewOptional.get();
+            reviewRepository.delete(review);
+        } else {
+            throw new Exception("Review not found with id: " + reviewId);
+        }
+    }
 }
-
-
 
 
 

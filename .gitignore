@@ -61,3 +61,7 @@ dist-ssr
 src/main/resources/application.properties
 
 *.env
+
+# Suuuuuuuuuper secret files
+front-end/src/pages/Admin/SecretLogin.jsx
+src/main/java/com/wguhub/Services/UserService.java

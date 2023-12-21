@@ -40,7 +40,7 @@ public class User {
     @Column(name = "email_verification_token")
     private String emailVerificationToken;
 
-    @Column(name = "user_role", nullable = false)
+    @Column(name = "user_role", nullable = false, columnDefinition = "varchar(20) default 'USER'")
     private String userRole;
 
     // Timestamps

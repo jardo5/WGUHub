@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Emote from '@material-symbols/svg-500/outlined/emoticon.svg?react';
 import _ from 'lodash';
-import { fetchCourses, searchCourses } from '../../services/CourseService.js'; // Import the CourseService functions
+import { fetchCourses, searchCourses } from '../services/CourseService.js'; // Import the CourseService functions
 
 function Courses({ selectedDegreeId, searchTerm }) {
     const [courses, setCourses] = useState([]);

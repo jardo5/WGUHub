@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
-import Content from './components/Content.jsx';
+import Content from './pages/Content.jsx';
 
 function App() {
     const [selectedDegreeId, setSelectedDegreeId] = useState(null);
