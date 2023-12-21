@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import BackHand from '@material-symbols/svg-500/outlined/back_hand.svg?react';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {login} from "../../services/UserService.js";
 
 function SecretLogin() {
-    const [credentials, setCredentials] = useState({ username: '', password: '' });
+    const [credentials, setCredentials] = useState({username: '', password: ''});
     const navigate = useNavigate();
 
 
     const handleChange = (e) => {
-        setCredentials({ ...credentials, [e.target.name]: e.target.value });
+        setCredentials({...credentials, [e.target.name]: e.target.value});
     };
 
     const handleSubmit = async (event) => {
@@ -30,7 +30,6 @@ function SecretLogin() {
             console.error("Login error", error);
         }
     };
-
 
 
     return (

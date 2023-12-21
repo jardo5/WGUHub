@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -20,7 +18,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="user_id", nullable = false)
+    @Column(name = "user_id", nullable = false)
     private int userId;
 
     @Column(name = "user_name", nullable = false, unique = true)
@@ -49,6 +47,8 @@ public class User {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+    @OneToMany(mappedBy = "user")
+    private Set<Review> reviews = new HashSet<>();
 
     @PrePersist
     protected void onCreate() {
@@ -59,7 +59,4 @@ public class User {
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
-
-    @OneToMany(mappedBy = "user")
-    private Set<Review> reviews = new HashSet<>();
 }

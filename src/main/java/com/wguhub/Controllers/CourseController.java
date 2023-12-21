@@ -3,9 +3,8 @@ package com.wguhub.Controllers;
 import com.wguhub.Models.Course;
 import com.wguhub.Repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 

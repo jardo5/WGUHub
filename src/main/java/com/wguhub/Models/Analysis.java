@@ -1,8 +1,11 @@
 package com.wguhub.Models;
 
-import java.sql.Timestamp;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.sql.Timestamp;
 
 @Getter
 @Setter

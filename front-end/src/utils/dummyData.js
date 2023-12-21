@@ -1,9 +1,9 @@
 export const dummyCourses = [
-    { id: 1, code: "C670", name: "Concepts in Science", credits: 5 },
-    { id: 2, code: "C670", name: "Concepts in Science", credits: 4 },
-    { id: 3, code: "C172", name: "Network and Security - Foundations", credits: 4 },
-    { id: 4, code: "C173", name: "Scripting and Programming - Foundations", credits: 3 },
-    { id: 5, code: "C175", name: "Data Management - Foundations", credits: 3 },
+    {id: 1, code: "C670", name: "Concepts in Science", credits: 5},
+    {id: 2, code: "C670", name: "Concepts in Science", credits: 4},
+    {id: 3, code: "C172", name: "Network and Security - Foundations", credits: 4},
+    {id: 4, code: "C173", name: "Scripting and Programming - Foundations", credits: 3},
+    {id: 5, code: "C175", name: "Data Management - Foundations", credits: 3},
 ];
 
 export const dummyReviews = {

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
-import { submitReview } from '../../services/ReviewService.js'; // Import the service function
+import React, {useEffect, useState} from 'react';
+import {useParams, useSearchParams} from 'react-router-dom';
+import {submitReview} from '../../services/ReviewService.js'; // Import the service function
 import Overall from '@material-symbols/svg-500/outlined/star.svg?react';
 import Workload from '@material-symbols/svg-500/outlined/work.svg?react';
 import Difficulty from '@material-symbols/svg-500/outlined/trending_up.svg?react';
 import Review from '@material-symbols/svg-500/outlined/edit.svg?react';
 
 function AddNewReview() {
-    const { courseCode } = useParams();
+    const {courseCode} = useParams();
     const [searchParams] = useSearchParams();
     const courseName = searchParams.get('courseName');
 
@@ -109,25 +109,25 @@ function AddNewReview() {
             <form onSubmit={handleSubmit} className="w-full flex flex-col gap-2">
                 {/* Overall Rating */}
                 <section className="w-full h-44 flex justify-center items-center flex-col border border-primary py-4">
-                    <Overall className="fill-primary h-10 w-10" />
+                    <Overall className="fill-primary h-10 w-10"/>
                     <h1 className="font-extrabold">Overall Rating</h1>
                     {renderRating('overallRating', overallRating, setOverallRating)}
                 </section>
                 {/* Difficulty Rating */}
                 <section className="w-full h-44 flex justify-center items-center flex-col border border-primary py-4">
-                    <Difficulty className="fill-primary h-10 w-10" />
+                    <Difficulty className="fill-primary h-10 w-10"/>
                     <h1 className="font-extrabold">Difficulty Rating</h1>
                     {renderRating('difficultyRating', difficultyRating, setDifficultyRating)}
                 </section>
                 {/* Workload Rating */}
                 <section className="w-full h-44 flex justify-center items-center flex-col border border-primary py-4">
-                    <Workload className="fill-primary h-10 w-10" />
+                    <Workload className="fill-primary h-10 w-10"/>
                     <h1 className="font-extrabold">Workload Rating</h1>
                     {renderRating('workloadRating', workloadRating, setWorkloadRating)}
                 </section>
                 {/* Review Text */}
                 <section className="w-full h-56 flex justify-center items-center flex-col border border-primary gap-2">
-                    <Review className="fill-primary h-10 w-10" />
+                    <Review className="fill-primary h-10 w-10"/>
                     <h1 className="font-extrabold">Review</h1>
                     <textarea
                         className="textarea textarea-bordered textarea-secondary h-1/2 w-3/4"

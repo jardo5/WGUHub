@@ -1,4 +1,4 @@
-function ConfirmModal({ title, description, onConfirm, onCancel }) {
+function ConfirmModal({title, description, onConfirm, onCancel}) {
     return (
         <dialog className="modal modal-bottom sm:modal-middle" open>
             <div className="modal-box bg-accent">

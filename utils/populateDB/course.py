@@ -1,6 +1,8 @@
 import os
+
 import pandas as pd
 import psycopg2
+
 
 def connect_to_db():
     db_url = ""
@@ -13,6 +15,7 @@ def connect_to_db():
         password=password,
         host=db_url.split(":")[0]
     )
+
 
 def import_data_from_csv(file_path):
     print(f"Connecting to database for file: {file_path}")
@@ -78,6 +81,7 @@ def import_data_from_csv(file_path):
     for course_code, count in duplicate_courses.items():
         print(f"Duplicate course {course_code} encountered {count} times in file: {file_path}")
 
+
 def main():
     folder_path = '.csvFiles'
     total_files = len([name for name in os.listdir(folder_path) if name.endswith('.csv')])
@@ -92,6 +96,7 @@ def main():
             processed_files += 1
 
     print(f"\nProcessing complete. Total files processed: {processed_files}")
+
 
 if __name__ == "__main__":
     main()

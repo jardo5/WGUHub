@@ -2,7 +2,10 @@ package com.wguhub.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,7 +19,7 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="course_id", nullable = false)
+    @Column(name = "course_id", nullable = false)
     private int courseId;
 
     @Column(name = "course_code", nullable = false)

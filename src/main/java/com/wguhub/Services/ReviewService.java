@@ -1,8 +1,8 @@
 package com.wguhub.Services;
 
+import com.wguhub.DTOs.CourseReviewSummaryDTO;
 import com.wguhub.DTOs.InitialReviewDTO;
 import com.wguhub.DTOs.ReviewDTO;
-import com.wguhub.DTOs.CourseReviewSummaryDTO;
 import com.wguhub.DTOs.ReviewUpdateDTO;
 import com.wguhub.Models.Course;
 import com.wguhub.Models.Review;
@@ -14,17 +14,14 @@ import com.wguhub.Repository.UnverifiedReviewRepository;
 import com.wguhub.Repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.sql.SQLDataException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.Optional;
@@ -134,7 +131,9 @@ public class ReviewService {
         Optional<Course> courseOptional = courseRepository.findByCourseCode(reviewDTO.getCourseCode());
         courseOptional.ifPresentOrElse(
                 unverifiedReview::setCourse,
-                () -> { throw new IllegalArgumentException("Course not found for the provided courseCode"); }
+                () -> {
+                    throw new IllegalArgumentException("Course not found for the provided courseCode");
+                }
         );
 
         unverifiedReview.setReviewRating(reviewDTO.getReviewRating());

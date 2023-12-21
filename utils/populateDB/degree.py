@@ -85,7 +85,6 @@ M.A. Science Education (Secondary Physics)
 Endorsement Preparation Program, English Language Learning (ELL) (PreK-12)
 """
 
-
 import psycopg2
 
 programs = programs_str.strip().split('\n')
@@ -118,5 +117,3 @@ try:
 
 except Exception as e:
     print(f"An error occurred: {e}")
-
-

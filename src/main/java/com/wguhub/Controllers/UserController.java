@@ -28,7 +28,7 @@ public class UserController {
         User authenticatedUser = userService.authenticateUser(userLoginDTO.getUsername(), userLoginDTO.getPassword());
         if (authenticatedUser != null) {
             String role = authenticatedUser.getUserRole();
-            String token = jwtUtil.generateToken(userLoginDTO.getUsername(), role); // Use the autowired instance
+            String token = jwtUtil.generateToken(userLoginDTO.getUsername(), role);
             return ResponseEntity.ok(token);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials or not an admin");

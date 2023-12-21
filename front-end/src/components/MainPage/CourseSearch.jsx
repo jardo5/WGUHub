@@ -1,6 +1,6 @@
 import React from 'react';
 
-function CourseSearch({ setSearchTerm }) {
+function CourseSearch({setSearchTerm}) {
     const handleSearchChange = (e) => {
         const term = e.target.value;
         setSearchTerm(term);

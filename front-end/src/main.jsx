@@ -6,9 +6,9 @@ import {DevSupport} from "@react-buddy/ide-toolbox";
 import {ComponentPreviews, useInitial} from "./dev/index.js";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-        <DevSupport ComponentPreviews={ComponentPreviews}
-                    useInitialHook={useInitial}
-        >
-            <App/>
-        </DevSupport>
+    <DevSupport ComponentPreviews={ComponentPreviews}
+                useInitialHook={useInitial}
+    >
+        <App/>
+    </DevSupport>
 )

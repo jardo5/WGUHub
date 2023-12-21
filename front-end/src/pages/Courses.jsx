@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import React, {useCallback, useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Emote from '@material-symbols/svg-500/outlined/emoticon.svg?react';
 import _ from 'lodash';
-import { fetchCourses, searchCourses } from '../services/CourseService.js'; // Import the CourseService functions
+import {fetchCourses, searchCourses} from '../services/CourseService.js'; // Import the CourseService functions
 
-function Courses({ selectedDegreeId, searchTerm }) {
+function Courses({selectedDegreeId, searchTerm}) {
     const [courses, setCourses] = useState([]);
     const [hasMore, setHasMore] = useState(true);
 
@@ -59,7 +59,8 @@ function Courses({ selectedDegreeId, searchTerm }) {
                         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
                     </div>
                 }
-                endMessage={<p className="flex flex-col items-center fill-accent text-accent my-12"><Emote /> No more courses to load.</p>}
+                endMessage={<p className="flex flex-col items-center fill-accent text-accent my-12"><Emote/> No more
+                    courses to load.</p>}
             >
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {courses.map(course => (
@@ -68,7 +69,8 @@ function Courses({ selectedDegreeId, searchTerm }) {
                                 <p className="text-gray-600">{course.courseCode}</p>
                                 <h3 className="text-xl font-semibold text-gray-800">{course.courseName}</h3>
                                 <p className="text-gray-600">Credits: {course.courseCredits}</p>
-                                <Link to={`/course/${course.courseCode}`} className="text-indigo-600 hover:text-indigo-800">View Reviews</Link>
+                                <Link to={`/course/${course.courseCode}`}
+                                      className="text-indigo-600 hover:text-indigo-800">View Reviews</Link>
                             </div>
                         </div>
                     ))}
