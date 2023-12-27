@@ -106,7 +106,7 @@ function AddNewReview() {
             <div className="text-2xl flex flex-col items-center justify-center my-4">
                 <h1 className="border-b-primary border-b">{courseCode} - {courseName}</h1>
             </div>
-            <form onSubmit={handleSubmit} className="w-full flex flex-col gap-2">
+            <form onSubmit={handleSubmit} className="w-full flex flex-col gap-2 md:w-1/2">
                 {/* Overall Rating */}
                 <section className="w-full h-44 flex justify-center items-center flex-col border border-primary py-4">
                     <Overall className="fill-primary h-10 w-10"/>

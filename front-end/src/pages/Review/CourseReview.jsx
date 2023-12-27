@@ -72,9 +72,9 @@ function CourseReview() {
                     Add New Review
                 </button>
             </div>
-            <div>
+            <div className="gap-2 flex-wrap flex">
                 {reviews.map((review, index) => (
-                    <div key={review.reviewId || index} className="p-4 m-2 border border-primary rounded">
+                    <div key={review.reviewId || index} className="p-4 m-2 border border-primary rounded md:w-1/2">
                         <div className="flex flex-row justify-between border-b border-primary mb-2 pb-1">
                             <h2 className="text-xl font-bold flex items-center gap-2">
                                 <VerifiedUser className="fill-primary h-6 w-6 inline-block"/>
@@ -85,7 +85,7 @@ function CourseReview() {
                             </h3>
                         </div>
                         <p>{review.reviewText}</p>
-                        <div className="flex flex-row items-center gap-2 mt-4">
+                        <div className="flex flex-row items-center gap-2 mt-4 flex-wrap">
                             <span className="badge badge-outline badge-primary">Rating: {review.reviewRating} / 5</span>
                             <span className="badge badge-outline badge-primary">Difficulty: {review.reviewDifficulty} / 5</span>
                             <span
