@@ -5,7 +5,7 @@
 <h1 align="center">
   <span style="color:#6E8FD9">WGUHub</span>
 
-<span style="color:#D97B6E">(W.I.P) Invite Only</span>
+<span style="color:#D97B6E">Invite Only</span>
 </h1>
 
 <h1 align="center">
